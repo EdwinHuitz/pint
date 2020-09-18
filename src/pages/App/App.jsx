@@ -6,26 +6,29 @@ import Login from "../Login/Login";
 import Users from "../Users/Users";
 import authService from "../../services/authService";
 import "./App.css";
-
+import {exifImg} from "../../services/gps";
 class App extends Component {
   state = {
     user: authService.getUser(),
   };
-
+  
   handleLogout = () => {
     authService.logout();
     this.setState({ user: null });
     this.props.history.push("/");
   };
-
+  
   handleSignupOrLogin = () => {
     this.setState({ user: authService.getUser() });
   };
-
+  
   render() {
     const { user } = this.state
     return (
       <>
+      <img src="a.jpg" alt="" id="img2"></img>
+      <pre id="allMetaDataSpan"></pre>
+      <button onClick={exifImg}>GPS Co-Ordinates</button>
         <NavBar user={user} handleLogout={this.handleLogout} />
         <Route
           exact
@@ -35,14 +38,14 @@ class App extends Component {
               <h1>Welcome. This is an authorization template.</h1>
             </main>
           )}
-        />
+          />
         <Route
           exact
           path="/signup"
           render={({ history }) => (
             <Signup
-              history={history}
-              handleSignupOrLogin={this.handleSignupOrLogin}
+            history={history}
+            handleSignupOrLogin={this.handleSignupOrLogin}
             />
           )}
         />
